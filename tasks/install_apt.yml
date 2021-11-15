@@ -1,7 +1,7 @@
 ---
-- name: Install Filebeat
+- name: Install Kibana
   become: true
   apt:
-    deb: "/tmp/filebeat-{{ filebeat_version }}-amd64.deb"
+    deb: "/tmp/kibana-{{ kibana_version }}-amd64.deb"
     state: present
-  notify: restart Filebeat
+  notify: restart Kibana
