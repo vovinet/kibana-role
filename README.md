@@ -16,6 +16,7 @@ Role Variables
 --------------
 | Variable name | Default | Description |
 | kibana_version | 7.14.0 | Kibana version to be installed |
+| kibana_es_hosts | http://localhost:9200 | Elasticsearch URL to be configured in kibana.yml  |
 | kibana_install_type | remote | Installation type. "remote" flag will force fetching distro from elastic.co |
 
 Dependencies
