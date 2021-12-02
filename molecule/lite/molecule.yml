@@ -1,0 +1,32 @@
+---
+dependency:
+  name: galaxy
+driver:
+  name: docker
+platforms:
+  - name: centos7
+    image: docker.io/pycontribs/centos:8
+    port_bindings:
+      10501: 5601
+    pre_build_image: true
+  - name: centos8
+    image: docker.io/pycontribs/centos:7
+    port_bindings:
+      10502: 5601
+    pre_build_image: true
+  - name: ubuntu
+    image: docker.io/pycontribs/ubuntu:latest
+    port_bindings:
+      10503: 5601
+    pre_build_image: true
+provisioner:
+  name: ansible
+verifier:
+  name: ansible
+scenario:
+  test_sequence:
+    - destroy
+    - create
+    - converge
+    - destroy
+
