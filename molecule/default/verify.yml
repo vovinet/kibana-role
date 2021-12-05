@@ -5,6 +5,21 @@
   hosts: all
   gather_facts: false
   tasks:
-  - name: Example assertion
+  - name: Remove old logs
+    command: rm -f /var/log/kibana/kibana.log
+
+  - name: Run Kibana
+    shell: cd /usr/share/kibana; export Environment=KBN_HOME=/usr/share/kibana; Environment=KBN_PATH_CONF=/etc/kibana; nohup /usr/share/kibana/bin/kibana --logging.dest="/var/log/kibana/kibana.log" --pid.file="/run/kibana/kibana.pid" --allow-root & sleep 10
+
+  - name: Read logs
+    command: cat /var/log/kibana/kibana.log
+    register: kibana_log
+
+  - name: Check Startup
     assert:
-      that: true
+      that: 
+        - '"http server running at" in kibana_log.stdout'
+      msg: Service successfully started
+    
+  - name: Kill Kibana
+    shell: pkill -15 -F /run/kibana/kibana.pid
